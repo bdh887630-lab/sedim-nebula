@@ -3,404 +3,243 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#0b1023">
-  <meta name="description" content="اكتشف منصة سديم Nebula: مساحة عربية للقوالب الذكية، وتطوير التطبيقات، ومعالجة البورتريه.">
   <title>سديم Nebula | من الفكرة إلى التطبيق</title>
-
   <style>
-    :root {
-      --primary: #2458e8;
-      --ink: #182139;
-      --muted: #667085;
-      --line: #e5eaf3;
-      --surface: #ffffff;
-      --background: #f6f8fc;
-      --radius: 22px;
-    }
-
-    * { box-sizing: border-box; }
-
+    * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
-      margin: 0;
       font-family: Tahoma, Arial, sans-serif;
-      color: var(--ink);
-      background-color: var(--background);
+      color: #182139;
+      background-color: #f6f8fc;
       background-image:
         radial-gradient(circle at 88% 8%, rgba(36, 88, 232, 0.11), transparent 36%),
         radial-gradient(circle at 12% 38%, rgba(118, 58, 207, 0.08), transparent 40%),
-        radial-gradient(circle at 85% 75%, rgba(23, 119, 94, 0.06), transparent 38%),
         linear-gradient(to right, rgba(36, 88, 232, 0.03) 1px, transparent 1px),
         linear-gradient(to bottom, rgba(36, 88, 232, 0.03) 1px, transparent 1px);
-      background-size: 100% 100%, 100% 100%, 100% 100%, 36px 36px, 36px 36px;
+      background-size: 100% 100%, 100% 100%, 36px 36px, 36px 36px;
       line-height: 1.8;
     }
-
     a { color: inherit; text-decoration: none; }
-    h1, h2, h3, p, figure { margin: 0; }
+    .container { width: min(1160px, calc(100% - 32px)); margin-inline: auto; }
 
-    .container {
-      width: min(1160px, calc(100% - 40px));
-      margin-inline: auto;
-    }
-
-    /* شريط التنقل */
+    /* الشريط العلوي */
     .site-header {
-      position: sticky;
-      top: 0;
-      z-index: 20;
-      background: rgba(255, 255, 255, 0.94);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--line);
+      background: #ffffff;
+      border-bottom: 1px solid #e5eaf3;
+      padding: 14px 0;
     }
-
     .header-content {
-      min-height: 80px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 24px;
+      flex-wrap: wrap;
+      gap: 15px;
     }
-
-    .brand {
-      display: inline-flex;
-      align-items: center;
-      gap: 12px;
-      flex-shrink: 0;
-    }
-
+    .brand { display: flex; align-items: center; gap: 12px; }
     .brand-logo-img {
-      width: 48px;
-      height: 48px;
-      object-fit: contain;
-      border-radius: 12px;
-      background: #0b1023;
-      padding: 4px;
-      box-shadow: 0 4px 12px rgba(11, 16, 35, 0.15);
+      width: 46px; height: 46px; object-fit: contain;
+      border-radius: 12px; background: #0b1023; padding: 4px;
     }
-
-    .brand-name { display: grid; line-height: 1.4; }
-    .brand-name strong { font-size: 22px; }
-    .brand-name small { color: var(--primary); font-size: 11px; font-weight: bold; }
-
-    nav { display: flex; align-items: center; gap: 24px; }
-    nav a { color: var(--muted); font-size: 14px; font-weight: bold; }
-
+    .brand-name strong { display: block; font-size: 20px; line-height: 1.2; }
+    .brand-name small { color: #2458e8; font-size: 11px; font-weight: bold; }
+    nav { display: flex; gap: 20px; }
+    nav a { color: #667085; font-size: 14px; font-weight: bold; }
     .btn {
-      display: inline-flex;
-      justify-content: center;
-      align-items: center;
-      gap: 10px;
-      min-height: 48px;
-      padding: 11px 22px;
-      border: 1px solid transparent;
-      border-radius: 12px;
-      font-weight: 700;
-      font-size: 14px;
-      cursor: pointer;
+      display: inline-flex; align-items: center; justify-content: center;
+      padding: 11px 22px; border-radius: 12px; font-weight: bold; font-size: 14px;
+      border: none; cursor: pointer;
     }
-
-    .btn-primary {
-      color: white;
-      background: linear-gradient(135deg, #2458e8, #1d4ed8);
-      box-shadow: 0 4px 14px rgba(36, 88, 232, 0.25);
-    }
-
-    .btn-secondary {
-      color: white;
-      background: rgba(255, 255, 255, 0.08);
-      border-color: rgba(255, 255, 255, 0.25);
-    }
+    .btn-primary { background: #2458e8; color: #ffffff; }
+    .btn-secondary { background: rgba(255,255,255,0.1); color: #ffffff; border: 1px solid rgba(255,255,255,0.3); }
 
     /* القسم الرئيسي */
     .hero {
-      position: relative;
-      overflow: hidden;
-      display: grid;
-      grid-template-columns: 1.08fr 1fr;
-      align-items: center;
-      gap: 48px;
-      margin-top: 30px;
-      padding: 55px 44px;
-      border: 1px solid #293455;
-      border-radius: 30px;
-      color: white;
+      margin-top: 25px;
+      padding: 45px 30px;
+      border-radius: 26px;
+      color: #ffffff;
       background-color: #070a14;
       background-image:
-        radial-gradient(ellipse at 10% 15%, rgba(118, 58, 207, 0.4), transparent 48%),
-        radial-gradient(ellipse at 85% 90%, rgba(36, 88, 232, 0.4), transparent 52%),
-        radial-gradient(rgba(255, 255, 255, 0.12) 1px, transparent 1px);
-      background-size: 100% 100%, 100% 100%, 28px 28px;
-      box-shadow: 0 20px 50px rgba(11, 16, 35, 0.2);
+        radial-gradient(ellipse at 10% 15%, rgba(118, 58, 207, 0.4), transparent 50%),
+        radial-gradient(ellipse at 85% 90%, rgba(36, 88, 232, 0.4), transparent 50%);
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 35px;
+      align-items: center;
     }
-
-    .hero-copy, .preview { position: relative; }
-
     .hero-logo-banner {
-      max-width: 240px;
-      height: auto;
-      display: block;
-      margin-bottom: 18px;
-      border-radius: 14px;
-      mix-blend-mode: lighten;
+      max-width: 220px; height: auto; display: block;
+      margin-bottom: 16px; border-radius: 12px; mix-blend-mode: lighten;
     }
-
     .eyebrow {
-      display: inline-flex;
-      align-items: center;
-      gap: 9px;
-      padding: 6px 13px;
-      margin-bottom: 18px;
-      color: #c7d6ff;
-      border: 1px solid rgba(255, 255, 255, 0.18);
-      border-radius: 100px;
-      background: rgba(255, 255, 255, 0.06);
-      font-size: 12px;
+      display: inline-block; padding: 5px 12px; margin-bottom: 14px;
+      color: #c7d6ff; border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 50px; font-size: 12px;
     }
+    h1 { font-size: clamp(28px, 4vw, 44px); line-height: 1.35; margin-bottom: 16px; }
+    .gradient-text { color: #93c5fd; }
+    .hero-description { color: #cbd5e1; font-size: 15px; margin-bottom: 24px; }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; }
+    .hero-note { margin-top: 16px; color: #94a3b8; font-size: 12px; }
 
-    .eyebrow::before {
-      content: "";
-      width: 7px;
-      height: 7px;
-      border-radius: 50%;
-      background: #72dfbc;
-      box-shadow: 0 0 12px #72dfbc;
-    }
-
-    h1 {
-      font-size: clamp(30px, 4vw, 48px);
-      line-height: 1.35;
-      margin-bottom: 18px;
-    }
-
-    .gradient-text {
-      color: #a9bfff;
-      background: linear-gradient(90deg, #c4b5fd, #7dd3fc);
-      -webkit-background-clip: text;
-      background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-
-    .hero-description {
-      color: #c0c9df;
-      font-size: 15px;
-      line-height: 1.9;
-      max-width: 510px;
-    }
-
-    .hero-actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-      margin-top: 26px;
-    }
-
-    .hero-note {
-      margin-top: 18px;
-      color: #a7b3cc;
-      font-size: 12px;
-    }
-
-    /* معاينة واجهة المنصة */
+    /* بطاقة المعاينة */
     .preview {
-      min-width: 0;
-      padding: 10px;
-      background: rgba(255, 255, 255, 0.06);
-      border: 1px solid rgba(255, 255, 255, 0.16);
-      border-radius: 20px;
-      box-shadow: 0 28px 65px rgba(0, 0, 0, 0.45);
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 18px;
+      padding: 12px;
     }
-
-    .window-bar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 5px 6px 13px;
-      color: #b5bfd5;
-      font-size: 10px;
-    }
-
-    .window-dots { display: flex; gap: 5px; direction: ltr; }
-    .window-dots i {
-      width: 7px;
-      height: 7px;
-      border-radius: 50%;
-      background: #72809d;
-    }
-    .window-dots i:first-child { background: #f38491; }
-    .window-dots i:nth-child(2) { background: #f5ca7c; }
-    .window-dots i:last-child { background: #6dd9b6; }
-
-    .dashboard {
-      padding: 17px;
-      background: #f5f7fc;
-      color: var(--ink);
-      border-radius: 12px;
-    }
-
-    .dashboard-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 16px;
-      font-size: 11px;
-    }
-
-    .dashboard-header strong { color: var(--primary); }
-    .dashboard-header span { color: var(--muted); font-size: 9px; }
-
-    .dashboard-banner {
-      position: relative;
-      overflow: hidden;
-      padding: 25px 18px;
-      border-radius: 12px;
-      background:
-        radial-gradient(circle at 0% 0%, #65429c, transparent 70%),
-        #10162d;
-      color: white;
-    }
-
-    .dashboard-banner::after {
-      content: "✦";
-      position: absolute;
-      left: 13px;
-      top: -17px;
-      font-size: 115px;
-      color: rgba(255, 255, 255, 0.08);
-    }
-
-    .dashboard-banner small { color: #b8c8ff; font-size: 9px; }
-    .dashboard-banner h3 { margin: 6px 0; font-size: 18px; }
-    .dashboard-banner p { color: #c1c9dc; font-size: 10px; }
-
-    .dashboard-tools {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 8px;
-      margin-block: 12px;
-    }
-
+    .dashboard { background: #f5f7fc; color: #182139; border-radius: 12px; padding: 16px; }
+    .dashboard-header { display: flex; justify-content: space-between; font-size: 12px; margin-bottom: 12px; }
+    .dashboard-header strong { color: #2458e8; }
+    .dashboard-banner { background: #10162d; color: #fff; padding: 20px; border-radius: 10px; margin-bottom: 12px; }
+    .dashboard-banner small { color: #93c5fd; font-size: 10px; }
+    .dashboard-banner h3 { font-size: 17px; margin: 4px 0; }
+    .dashboard-banner p { font-size: 11px; color: #cbd5e1; }
+    .dashboard-tools { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
     .mini-tool {
-      display: grid;
-      justify-items: center;
-      gap: 7px;
-      padding: 13px 4px;
-      background: white;
-      border: 1px solid var(--line);
-      border-radius: 10px;
-      font-size: 10px;
-      font-weight: bold;
+      background: #fff; border: 1px solid #e5eaf3; border-radius: 8px;
+      padding: 10px 4px; text-align: center; font-size: 11px; font-weight: bold;
     }
 
-    .mini-tool b {
-      display: grid;
-      place-items: center;
-      width: 32px;
-      height: 32px;
-      border-radius: 10px;
-      background: #edf2ff;
-      color: var(--primary);
-      font-size: 16px;
+    /* المميزات */
+    section { padding: 50px 0; }
+    .section-heading { text-align: center; max-width: 600px; margin: 0 auto 30px; }
+    .section-label { color: #2458e8; font-size: 13px; font-weight: bold; display: block; margin-bottom: 6px; }
+    .section-heading h2 { font-size: 26px; margin-bottom: 8px; }
+    .section-heading p { color: #667085; font-size: 14px; }
+    .features-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+    .feature { background: #ffffff; border: 1px solid #e5eaf3; border-radius: 18px; padding: 24px; }
+    .feature h3 { font-size: 17px; margin-bottom: 8px; color: #2458e8; }
+    .feature p { font-size: 13px; color: #667085; }
+
+    /* الخطوات */
+    .how-section { background: #ffffff; border-block: 1px solid #e5eaf3; }
+    .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; list-style: none; }
+    .step { text-align: center; padding: 20px; border: 1px solid #e5eaf3; border-radius: 16px; }
+    .step-number {
+      display: inline-grid; place-items: center; width: 42px; height: 42px;
+      background: #edf2ff; color: #2458e8; border-radius: 50%; font-weight: bold; margin-bottom: 12px;
     }
 
-    .project-box {
-      padding: 14px;
-      border: 1px solid var(--line);
-      border-radius: 11px;
-      background: white;
-      font-size: 10px;
+    /* الملاحظات */
+    .feedback-box {
+      max-width: 600px; margin: 0 auto; background: #ffffff;
+      border: 1px solid #e5eaf3; border-radius: 20px; padding: 30px;
     }
-
-    .project-row {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 10px;
-      margin-top: 10px;
-      padding-top: 9px;
-      border-top: 1px solid #edf0f6;
-      color: var(--muted);
+    .form-group { margin-bottom: 15px; }
+    .form-group label { display: block; margin-bottom: 6px; font-weight: bold; font-size: 13px; }
+    .form-control {
+      width: 100%; padding: 12px; border: 1px solid #cbd5e1;
+      border-radius: 10px; font-family: inherit; font-size: 14px; background: #f8fafc;
     }
+    textarea.form-control { height: 100px; resize: vertical; }
 
-    .project-row span:last-child { color: var(--primary); font-weight: bold; }
+    /* التذييل */
+    footer { background: #ffffff; border-top: 1px solid #e5eaf3; padding: 24px 0; text-align: center; color: #667085; font-size: 13px; }
 
-    .preview figcaption {
-      padding-top: 9px;
-      text-align: center;
-      color: #aebbd7;
-      font-size: 10px;
+    @media (max-width: 850px) {
+      .hero, .features-grid, .steps { grid-template-columns: 1fr; }
+      .hero { text-align: center; }
+      .hero-logo-banner, .hero-actions { margin-inline: auto; justify-content: center; }
     }
+  </style>
+</head>
+<body>
 
-    /* شريط تعريفي */
-    .highlights {
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 16px 36px;
-      padding: 27px 10px;
-      border-bottom: 1px solid var(--line);
-      color: var(--muted);
-      font-size: 13px;
-      font-weight: bold;
-    }
+  <header class="site-header">
+    <div class="container header-content">
+      <a href="#" class="brand">
+        <img src="logo-icon.png" alt="شعار سديم" class="brand-logo-img">
+        <div class="brand-name">
+          <strong>سديم</strong>
+          <small>NEBULA PLATFORM</small>
+        </div>
+      </a>
+      <nav>
+        <a href="#features">المميزات</a>
+        <a href="#how">كيف تبدأ؟</a>
+        <a href="#feedback">الملاحظات</a>
+      </nav>
+      <a href="https://pages.dev" class="btn btn-primary" target="_blank">دخول المنصة ←</a>
+    </div>
+  </header>
 
-    .highlights span::before {
-      content: "✓";
-      color: var(--primary);
-      font-weight: bold;
-      margin-left: 8px;
-    }
+  <main>
+    <section class="container hero">
+      <div>
+        <img src="logo-hero.png" alt="سديم Nebula" class="hero-logo-banner">
+        <span class="eyebrow">مساحة عربية للإبداع والتطوير</span>
+        <h1>من فكرة صغيرة،<br>إلى <span class="gradient-text">تطبيق يعبّر عنك.</span></h1>
+        <p class="hero-description">
+          اكتشف سديم Nebula: منصة تجمع القوالب الذكية، والمحرر المباشر، وأدوات معالجة البورتريه في مكان واحد.
+        </p>
+        <div class="hero-actions">
+          <a href="https://pages.dev" class="btn btn-primary" target="_blank">الدخول إلى المنصة ←</a>
+          <a href="#features" class="btn btn-secondary">اكتشف الإمكانات</a>
+        </div>
+        <p class="hero-note">واجهة عربية • قوالب تطبيقات • أدوات تطوير متكاملة</p>
+      </div>
 
-    /* الأقسام */
-    section { padding-block: 60px; }
+      <div class="preview">
+        <div class="dashboard">
+          <div class="dashboard-header">
+            <strong>سديم Nebula</strong>
+            <span>مساحة العمل</span>
+          </div>
+          <div class="dashboard-banner">
+            <small>أهلاً بك في مساحة الإنتاج</small>
+            <h3>ماذا ستبني اليوم؟</h3>
+            <p>ابدأ بقالب جاهز أو انطلق من فكرتك الخاصة.</p>
+          </div>
+          <div class="dashboard-tools">
+            <div class="mini-tool">&lt;/&gt; المحرر</div>
+            <div class="mini-tool">❖ القوالب</div>
+            <div class="mini-tool">◉ البورتريه</div>
+          </div>
+        </div>
+      </div>
+    </section>
 
-    .section-heading {
-      max-width: 620px;
-      margin: 0 auto 36px;
-      text-align: center;
-    }
+    <section id="features" class="container">
+      <div class="section-heading">
+        <span class="section-label">اكتشف سديم</span>
+        <h2>أدوات متكاملة لأفكارك</h2>
+        <p>كل ما تحتاجه لبناء تطبيقاتك وتجربتها في مكان واحد.</p>
+      </div>
+      <div class="features-grid">
+        <div class="feature">
+          <h3>المحرر المباشر</h3>
+          <p>اكتب شيفرتك وعدّل مشروعك مباشرة من المتصفح بسهولة.</p>
+        </div>
+        <div class="feature">
+          <h3>مكتبة القوالب</h3>
+          <p>ابدأ من قوالب جاهزة وخصصها لتناسب فكرتك بسرعة.</p>
+        </div>
+        <div class="feature">
+          <h3>استوديو تقسيم الوجه</h3>
+          <p>أدوات ذكية لعزل الخلفية وتحسين صور البورتريه.</p>
+        </div>
+      </div>
+    </section>
 
-    .section-label {
-      display: block;
-      color: var(--primary);
-      font-size: 13px;
-      font-weight: bold;
-      margin-bottom: 9px;
-    }
-
-    .section-heading h2 {
-      font-size: clamp(24px, 3vw, 34px);
-      line-height: 1.4;
-      margin-bottom: 12px;
-    }
-
-    .section-heading p { color: var(--muted); font-size: 14px; }
-
-    .features-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 18px;
-    }
-
-    .feature {
-      padding: 27px;
-      background: linear-gradient(180deg, #ffffff 0%, #fafbff 100%);
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      box-shadow: 0 6px 20px rgba(24, 33, 57, 0.03);
-    }
-
-    .feature-icon {
-      display: grid;
-      place-items: center;
-      width: 46px;
-      height: 46px;
-      margin-bottom: 18px;
-      border-radius: 14px;
-      background: #edf2ff;
-      color: var(--primary);
-      font-size: 20px;
-      font-weight: bold;
-    }
-
-    .feature:nth-child(2) .feature-icon,
+    <section id="how" class="how-section">
+      <div class="container">
+        <div class="section-heading">
+          <span class="section-label">خطواتك الأولى</span>
+          <h2>ابدأ خطوة بخطوة</h2>
+        </div>
+        <ol class="steps">
+          <li class="step">
+            <span class="step-number">1</span>
+            <h3>ادخل إلى المنصة</h3>
+            <p>اضغط على زر دخول المنصة للانتقال لمساحة العمل.</p>
+          </li>
+          <li class="step">
+            <span class="step-number">2</span>
+            <h3>اختر قالباً</h3>
+            <p>تصفح القوالب الجاهزة أو أنشئ مشروعاً جديداً.</p>
+          </li>
+          <li class="step">
+            <span class="step-number">3</span>
+            <h3>عدّل وجرّب</h3>
+              
