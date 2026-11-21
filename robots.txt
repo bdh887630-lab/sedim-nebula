@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://sedim-nebula.pages.dev/sitemap.xml
