@@ -1,0 +1,16 @@
+{
+  "name": "sedim-nebula",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "node server.js",
+    "start": "node server.js",
+    "build": "node --check server.js && node --check nebula-links.js",
+    "lint": "node --check server.js && node --check nebula-links.js",
+    "test": "node --test nebula-links.test.js"
+  },
+  "dependencies": {
+    "express": "^4.21.2"
+  }
+}

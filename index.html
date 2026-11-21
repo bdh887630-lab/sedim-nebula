@@ -66,6 +66,7 @@
       gap: 35px;
       align-items: center;
     }
+    .hero > * { min-width: 0; }
     .hero-logo-banner {
       max-width: 220px; height: auto; display: block;
       margin-bottom: 16px; border-radius: 12px; mix-blend-mode: lighten;
@@ -97,8 +98,89 @@
     .dashboard-banner p { font-size: 11px; color: #cbd5e1; }
     .dashboard-tools { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
     .mini-tool {
+      display: block; color: inherit;
       background: #fff; border: 1px solid #e5eaf3; border-radius: 8px;
       padding: 10px 4px; text-align: center; font-size: 11px; font-weight: bold;
+      transition: border-color 0.15s ease, transform 0.15s ease;
+    }
+    .mini-tool:hover, .mini-tool:focus-visible {
+      border-color: #2458e8;
+      transform: translateY(-1px);
+      outline: none;
+    }
+    .link-reader {
+      margin-top: 12px;
+      padding-top: 10px;
+      border-top: 1px solid #e5eaf3;
+    }
+    .link-reader-label {
+      display: block;
+      font-size: 11px;
+      font-weight: bold;
+      color: #475467;
+      margin-bottom: 6px;
+    }
+    .link-reader-row {
+      display: flex;
+      gap: 6px;
+    }
+    .link-reader-input {
+      flex: 1;
+      min-width: 0;
+      padding: 7px 10px;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      font-size: 11px;
+      font-family: monospace;
+      background: #ffffff;
+      color: #182139;
+    }
+    .link-reader-btn {
+      padding: 7px 12px;
+      border-radius: 8px;
+      border: none;
+      background: #2458e8;
+      color: #ffffff;
+      font-size: 11px;
+      font-weight: bold;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+    .link-reader-status {
+      margin-top: 8px;
+      font-size: 11px;
+      border-radius: 8px;
+      padding: 6px 8px;
+      overflow-wrap: anywhere;
+      display: none;
+    }
+    .link-reader-status.is-error {
+      display: block;
+      background: #fef2f2;
+      color: #b91c1c;
+      border: 1px solid #fecaca;
+    }
+    .link-reader-status.is-success {
+      display: block;
+      background: #eff6ff;
+      color: #1d4ed8;
+      border: 1px solid #bfdbfe;
+    }
+    .dashboard-code-preview {
+      margin-top: 8px;
+      padding: 8px;
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.08);
+      color: #e2e8f0;
+      font-family: monospace;
+      font-size: 11px;
+      white-space: pre-wrap;
+      word-break: break-word;
+      max-height: 90px;
+      overflow-y: auto;
+      unicode-bidi: plaintext;
+      text-align: start;
+      display: none;
     }
 
     /* المميزات */
@@ -152,8 +234,8 @@
 
   <header class="site-header">
     <div class="container header-content">
-      <a href="#" class="brand">
-        <img src="logo-icon.png" alt="شعار سديم" class="brand-logo-img">
+      <a href="/" class="brand">
+        <img src="/logo-icon.png" alt="شعار سديم" class="brand-logo-img">
         <div class="brand-name">
           <strong>سديم</strong>
           <small>NEBULA PLATFORM</small>
@@ -164,21 +246,21 @@
         <a href="#how">كيف تبدأ؟</a>
         <a href="#feedback">الملاحظات</a>
       </nav>
-      <a href="https://pages.dev" class="btn btn-primary">دخول المنصة ←</a>
+      <a href="https://nebula-platform.pages.dev" target="_blank" rel="noopener noreferrer" class="btn btn-primary" data-platform-link>دخول المنصة ←</a>
     </div>
   </header>
 
   <main>
     <section class="container hero">
       <div>
-        <img src="logo-hero.png" alt="سديم Nebula" class="hero-logo-banner">
+        <img src="/logo-hero.png" alt="سديم Nebula" class="hero-logo-banner">
         <span class="eyebrow">مساحة عربية للإبداع والتطوير</span>
         <h1>من فكرة صغيرة،<br>إلى <span class="gradient-text">تطبيق يعبّر عنك.</span></h1>
         <p class="hero-description">
           اكتشف سديم Nebula: منصة تجمع القوالب الذكية، والمحرر المباشر، وأدوات معالجة البورتريه في مكان واحد.
         </p>
         <div class="hero-actions">
-          <a href="https://pages.dev" class="btn btn-primary">الدخول إلى المنصة ←</a>
+          <a href="https://nebula-platform.pages.dev" target="_blank" rel="noopener noreferrer" class="btn btn-primary" data-platform-link>الدخول إلى المنصة ←</a>
           <a href="#features" class="btn btn-secondary">اكتشف الإمكانات</a>
         </div>
         <p class="hero-note">واجهة عربية • قوالب تطبيقات • أدوات تطوير متكاملة</p>
@@ -188,18 +270,34 @@
         <div class="dashboard">
           <div class="dashboard-header">
             <strong>سديم Nebula</strong>
-            <span>مساحة العمل</span>
+            <span id="dashboard-workspace-label">مساحة العمل</span>
           </div>
-          <div class="dashboard-banner">
-            <small>أهلاً بك في مساحة الإنتاج</small>
-            <h3>ماذا ستبني اليوم؟</h3>
-            <p>ابدأ بقالب جاهز أو انطلق من فكرتك الخاصة.</p>
+          <div class="dashboard-banner" id="dashboard-banner">
+            <small id="dashboard-banner-badge">أهلاً بك في مساحة الإنتاج</small>
+            <h3 id="dashboard-banner-title">ماذا ستبني اليوم؟</h3>
+            <p id="dashboard-banner-desc">ابدأ بقالب جاهز أو انطلق من فكرتك الخاصة.</p>
+            <pre class="dashboard-code-preview" id="dashboard-code-preview" dir="auto"></pre>
           </div>
           <div class="dashboard-tools">
-            <div class="mini-tool">&lt;/&gt; المحرر</div>
-            <div class="mini-tool">❖ القوالب</div>
-            <div class="mini-tool">◉ البورتريه</div>
+            <a href="https://nebula-platform.pages.dev" target="_blank" rel="noopener noreferrer" class="mini-tool" data-platform-link>&lt;/&gt; المحرر</a>
+            <a href="https://nebula-platform.pages.dev" target="_blank" rel="noopener noreferrer" class="mini-tool" data-platform-link>❖ القوالب</a>
+            <a href="https://nebula-platform.pages.dev" target="_blank" rel="noopener noreferrer" class="mini-tool" data-platform-link>◉ البورتريه</a>
           </div>
+          <form class="link-reader" id="nebula-link-form" novalidate>
+            <label class="link-reader-label" for="nebula-url-input">قراءة رابط منصة سديم (nebula-platform.pages.dev)</label>
+            <div class="link-reader-row">
+              <input
+                id="nebula-url-input"
+                class="link-reader-input"
+                type="url"
+                dir="ltr"
+                placeholder="https://nebula-platform.pages.dev/?share=...#preview"
+                autocomplete="off"
+              >
+              <button type="submit" class="link-reader-btn">قراءة الرابط</button>
+            </div>
+            <div id="nebula-link-status" class="link-reader-status" role="status" aria-live="polite"></div>
+          </form>
         </div>
       </div>
     </section>
@@ -242,4 +340,86 @@
             <span class="step-number">2</span>
             <h3>اختر قالباً</h3>
             <p>تصفح القوالب الجاهزة أو أنشئ مشروعاً جديداً.</p>
-            
+          </li>
+        </ol>
+      </div>
+    </section>
+  </main>
+  <script type="module">
+    import { PLATFORM_ORIGIN, readNebulaLink } from '/nebula-links.js';
+
+    const platformLinks = document.querySelectorAll('[data-platform-link]');
+    const linkForm = document.getElementById('nebula-link-form');
+    const urlInput = document.getElementById('nebula-url-input');
+    const statusBox = document.getElementById('nebula-link-status');
+    const workspaceLabel = document.getElementById('dashboard-workspace-label');
+    const bannerBadge = document.getElementById('dashboard-banner-badge');
+    const bannerTitle = document.getElementById('dashboard-banner-title');
+    const bannerDesc = document.getElementById('dashboard-banner-desc');
+    const codePreview = document.getElementById('dashboard-code-preview');
+
+    function setPlatformLinksHref(targetUrl) {
+      platformLinks.forEach((link) => {
+        link.setAttribute('href', targetUrl || PLATFORM_ORIGIN);
+      });
+    }
+
+    function applyLinkResult(result, fromUserSubmit = false) {
+      if (!result.ok) {
+        statusBox.className = 'link-reader-status is-error';
+        statusBox.textContent = result.error;
+        return;
+      }
+
+      setPlatformLinksHref(result.platformUrl);
+
+      if (result.hasSharedProject && result.project) {
+        workspaceLabel.textContent = `وضع: ${result.project.mode}`;
+        bannerBadge.textContent = 'مشروع مشترك من رابط سديم';
+        bannerTitle.textContent = result.project.title;
+        bannerDesc.textContent = 'تمت قراءة المشروع من الرابط بنجاح وجاهز للفتح في منصة سديم.';
+        codePreview.textContent = result.project.code.slice(0, 320);
+        codePreview.style.display = 'block';
+        statusBox.className = 'link-reader-status is-success';
+        statusBox.textContent = `تمت قراءة المشروع «${result.project.title}» وتوجيه أزرار الدخول إلى nebula-platform.pages.dev.`;
+        return;
+      }
+
+      codePreview.style.display = 'none';
+      codePreview.textContent = '';
+
+      if (fromUserSubmit) {
+        workspaceLabel.textContent = 'رابط منصة سديم';
+        bannerBadge.textContent = 'رابط صالح لمنصة سديم';
+        bannerTitle.textContent = 'جاهز للانتقال إلى المنصة';
+        bannerDesc.textContent = result.platformUrl;
+        statusBox.className = 'link-reader-status is-success';
+        statusBox.textContent = `تمت قراءة الرابط وتوجيه أزرار الدخول إلى: ${result.platformUrl}`;
+      }
+    }
+
+    const initialResult = readNebulaLink({
+      pathname: window.location.pathname,
+      search: window.location.search,
+      hash: window.location.hash,
+    });
+    applyLinkResult(initialResult, false);
+    if (initialResult.ok && initialResult.hasSharedProject) {
+      urlInput.value = initialResult.platformUrl;
+    }
+
+    linkForm.addEventListener('submit', (event) => {
+      event.preventDefault();
+      const rawValue = urlInput.value.trim();
+      if (!rawValue) {
+        statusBox.className = 'link-reader-status is-error';
+        statusBox.textContent = 'يرجى لصق رابط مثل https://nebula-platform.pages.dev/?share=... أولاً.';
+        return;
+      }
+      const parsed = readNebulaLink({ inputUrl: rawValue });
+      applyLinkResult(parsed, true);
+    });
+  </script>
+</body>
+</html>
+
