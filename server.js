@@ -2,6 +2,7 @@ import express from 'express';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { submitToWeb3Forms } from './feedback-service.js';
+import { resolveSiteOrigin, buildSitemapXml, buildRobotsTxt } from './seo-sitemap.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -23,6 +24,24 @@ for (const [routePath, fileName] of PUBLIC_FILES.entries()) {
     res.sendFile(path.join(__dirname, fileName));
   });
 }
+
+app.get('/sitemap.xml', (req, res) => {
+  const origin = resolveSiteOrigin({
+    appUrl: process.env.APP_URL,
+    protocol: req.headers['x-forwarded-proto'] || req.protocol,
+    host: req.headers['x-forwarded-host'] || req.get('host'),
+  });
+  res.type('application/xml; charset=utf-8').send(buildSitemapXml({ origin }));
+});
+
+app.get('/robots.txt', (req, res) => {
+  const origin = resolveSiteOrigin({
+    appUrl: process.env.APP_URL,
+    protocol: req.headers['x-forwarded-proto'] || req.protocol,
+    host: req.headers['x-forwarded-host'] || req.get('host'),
+  });
+  res.type('text/plain; charset=utf-8').send(buildRobotsTxt({ origin }));
+});
 
 app.post('/api/feedback', async (req, res) => {
   const result = await submitToWeb3Forms({
